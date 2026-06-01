@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I Love You Zeba ❤️</title>
+<title>For My Love Zeba ❤️</title>
 
 <style>
 *{
@@ -13,29 +13,55 @@
 }
 
 body{
-    background:linear-gradient(135deg,#ff416c,#ff4b2b);
-    height:100vh;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Arial, sans-serif;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(-45deg,#ff416c,#ff4b2b,#ff758c,#ff7eb3);
+    background-size:400% 400%;
+    animation:bg 10s ease infinite;
 }
 
-.message{
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.center{
+    position:absolute;
+    width:100%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
     text-align:center;
-    color:white;
     z-index:10;
 }
 
-.message h1{
-    font-size:70px;
-    text-shadow:0 0 20px rgba(255,255,255,.8);
+h1{
+    color:white;
+    font-size:4rem;
+    text-shadow:0 0 20px white;
 }
 
-.message h2{
-    font-size:40px;
-    margin-top:20px;
+h2{
+    color:white;
+    margin-top:15px;
+}
+
+.btn{
+    margin-top:30px;
+    padding:15px 35px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#ff416c;
+    font-size:18px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn:hover{
+    transform:scale(1.05);
 }
 
 .heart{
@@ -54,33 +80,155 @@ body{
         opacity:0;
     }
 }
+
+.popup{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    z-index:100;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    width:90%;
+    max-width:600px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.card h3{
+    color:#ff416c;
+    margin-bottom:15px;
+}
+
+.close{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    background:#ff416c;
+    color:white;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.firework{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:white;
+}
 </style>
 </head>
-
 <body>
 
-<div class="message">
+<div class="center">
     <h1>❤️ I LOVE YOU ZEBA ❤️</h1>
-    <h2>— Ayoub Khan</h2>
+    <h2>Forever Yours, Ayoub Khan</h2>
+
+    <button class="btn" onclick="showLetter()">
+        💌 Open My Letter
+    </button>
+</div>
+
+<div class="popup" id="popup">
+    <div class="card">
+        <h3>To My Dearest Zeba ❤️</h3>
+
+        <p>
+        Every moment with you is special.
+        Your smile brightens my day,
+        your kindness warms my heart,
+        and your love makes my life beautiful.
+        </p>
+
+        <br>
+
+        <p>
+        Thank you for being my best friend,
+        my happiness, and my forever love.
+        </p>
+
+        <br>
+
+        <h2>❤️ I Love You ❤️</h2>
+
+        <button class="close" onclick="closeLetter()">
+            Close
+        </button>
+    </div>
 </div>
 
 <script>
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
 
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.fontSize = (20 + Math.random() * 50) + "px";
+function createHeart(){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    heart.innerHTML='❤️';
+
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(20+Math.random()*40)+'px';
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
+    setTimeout(()=>{
         heart.remove();
-    }, 8000);
+    },8000);
 }
 
-setInterval(createHeart, 200);
+setInterval(createHeart,150);
+
+function showLetter(){
+    document.getElementById('popup').style.display='flex';
+    launchFireworks();
+}
+
+function closeLetter(){
+    document.getElementById('popup').style.display='none';
+}
+
+function launchFireworks(){
+
+    for(let i=0;i<100;i++){
+
+        const f=document.createElement('div');
+        f.className='firework';
+
+        f.style.left='50%';
+        f.style.top='50%';
+
+        document.body.appendChild(f);
+
+        let angle=Math.random()*360;
+        let distance=100+Math.random()*300;
+
+        f.animate([
+        {
+            transform:'translate(0,0)',
+            opacity:1
+        },
+        {
+            transform:
+            `translate(
+            ${Math.cos(angle)*distance}px,
+            ${Math.sin(angle)*distance}px)`,
+            opacity:0
+        }
+        ],{
+            duration:1500,
+            easing:'ease-out'
+        });
+
+        setTimeout(()=>{
+            f.remove();
+        },1500);
+    }
+}
+
 </script>
 
 </body>
